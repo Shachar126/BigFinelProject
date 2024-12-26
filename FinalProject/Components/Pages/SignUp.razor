@@ -1,0 +1,66 @@
+﻿@page "/signup"
+@inject HttpClient HttpClient
+@inject NavigationManager Navigation
+
+<section class="container text-center mt-5">
+    <h1>Create Your Account</h1>
+    <EditForm Model="@signUpRequest" OnValidSubmit="HandleSignUp">
+        <div class="row justify-content-center">
+            <div class="col-6">
+
+                <div class="form-floating mb-3">
+                    <InputText class="form-control" id="first_name" @bind-Value="signUpRequest.FirstName" placeholder="Enter your First name" required />
+                    <label for="first_name">First Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText class="form-control" id="last_name" @bind-Value="signUpRequest.LastName" placeholder="Enter your Last name" required />
+                    <label for="last_name">Last Name</label>
+                </div>
+               
+                <div class="form-floating mb-3">
+                    <InputText class="form-control" id="username" @bind-Value="signUpRequest.UserName" placeholder="Enter your username" required />
+                    <label for="username">Username</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <InputText class="form-control" id="email" @bind-Value="signUpRequest.Email" placeholder="Enter your email" required />
+                    <label for="email">Email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <InputText type="password" class="form-control" id="password" @bind-Value="signUpRequest.Password" placeholder="Enter your password" required />
+                    <label for="password">Password</label>
+                </div>
+                <button class="btn btn-primary btn-lg" type="submit">Sign Up</button>
+            </div>
+        </div>
+    </EditForm>
+</section>
+
+@code {
+    private SignUpRequest signUpRequest = new SignUpRequest(); // אובייקט קלט לטופס ההרשמה
+
+    private async Task HandleSignUp()
+    {
+        var requestUrl = "api/person/signup"; // כתובת ה-API לביצוע ההרשמה
+        var response = await HttpClient.PostAsJsonAsync(requestUrl, signUpRequest);
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Sign-up successful!");
+            Navigation.NavigateTo("/login"); // ניווט לדף ההתחברות לאחר הרשמה
+        }
+        else
+        {
+            Console.WriteLine($"Sign-up failed with status: {response.StatusCode}");
+        }
+    }
+
+    // מחלקת המודל להרשמה
+    public class SignUpRequest
+    {
+        public string FirstName { get; set; } // עכשיו נוכל לקבל גם שם פרטי
+        public string LastName { get; set; } // and also last name
+        public string UserName { get; set; } // שם משתמש
+        public string Email { get; set; } // כתובת אימייל
+        public string Password { get; set; } // סיסמה
+    }
+}
