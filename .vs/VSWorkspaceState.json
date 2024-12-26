@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\FinalProject\\Components",
+    "\\FinalProject\\Components\\Pages",
+    "\\MyApi\\obj",
+    "\\MyApi\\obj\\Release",
+    "\\MyApi\\obj\\Release\\net8.0",
+    "\\MyApi\\obj\\Release\\net8.0\\ref",
+    "\\MyApi\\obj\\Release\\net8.0\\refint",
+    "\\MyClasses\\bin",
+    "\\MyClasses\\obj"
+  ],
+  "SelectedNode": "\\.gitIgnore",
+  "PreviewInSolutionExplorer": false
+}
